@@ -1,0 +1,28 @@
+public class Cell {
+  private PVector loc;
+  private PVector speed;
+  
+  private int col;
+  
+  Cell(PVector loc, PVector speed) {
+    this.loc = loc;
+    this.speed = speed;
+  }
+  
+  public void setColor(int col) {
+    this.col = col;
+  }
+  
+  public boolean collides(float x, float y) {
+    PVector point = new PVector(x, y);
+    float dist = PVector.dist(this.loc, point);
+    
+    return dist <= 35;
+  }
+  
+  void draw() {
+    noStroke();
+    fill(col);
+    ellipse(loc.x, loc.y, 70, 60);
+  }
+}
