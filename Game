@@ -1,0 +1,67 @@
+import java.util.Random;
+
+public class Game {
+  
+  ArrayList<Cell> cells = new ArrayList();
+  
+  void draw() {
+    background(255, 255, 255);
+   
+    //initalize cells, add into an arraylist to store
+    if (frameCount % 180 == 0) {
+      generateCells();
+    }
+    
+    //if (score == 20) {
+    //  if (frameCount % 60 == 0) {
+    //  generateCells();
+    //  }
+    //} else if (score == 40) {
+    //  if (frameCount % 30 == 0) {
+    //    generateCells();
+    //  }
+    //}
+   
+    //draw and move cells
+    for (Cell cell : cells) {
+      cell.draw();
+      cell.loc.add(cell.speed);
+    }
+     
+    player.draw();
+    
+    //check collision
+    for (int i = 0; i < cells.size(); i++) {
+      if (cells.get(i).collides(player.loc.x, player.loc.y)) {
+        println("collision");
+        cells.remove(i);
+        score ++;
+      }
+    }
+     
+    fill(0);
+    textSize(20);
+    text("SCORE: " + score, 10,30);
+  }
+  
+  void generateCells() {
+    Random rand = new Random();
+    
+    int[] colors = {
+      #3498DB, //blue
+      #A569BD, //purple
+      #E67E22, //orange
+      #28B463, //green
+      #F4D03F, //yellow
+      #8B4513, //brown
+      #808080 //gray
+    };
+    int colorLoc = rand.nextInt(colors.length);
+    
+    PVector cLoc = new PVector(random(35, width-35), 0);
+    PVector cSpeed = new PVector(0, +2);
+    Cell newCell = new Cell(cLoc, cSpeed);
+    newCell.setColor(colors[colorLoc]);
+    cells.add(newCell);
+  }
+}
