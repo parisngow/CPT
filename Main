@@ -1,0 +1,83 @@
+Menu menu;
+
+boolean instScreen = false;
+Button instructions;
+
+boolean aboutScreen = false;
+Button about;
+
+boolean play = false;
+Button start;
+
+Game game;
+Cell player;
+int score;
+
+void setup() {
+  size(600, 600);
+  
+  menu = new Menu();
+  game = new Game();
+  
+  instructions = new Button(100, 200);
+  instructions.setFunction("INSTRUCTIONS", 110, 255);
+    
+  about = new Button(350, 200);
+  about.setFunction("ABOUT", 395, 245);
+    
+  start = new Button (225, 350);
+  start.setFunction("START", 272, 408);
+  
+  score = 0;
+  
+  //initalize player
+  PVector pLoc = new PVector(300, 500);
+  PVector pSpeed = new PVector(0, 0);
+  player = new Cell(pLoc, pSpeed);
+  player.setColor(#B22222);
+}
+
+void draw() {
+  if (play == false && aboutScreen == false && instScreen == false) {
+    menu.draw();
+  } else if (play == true) {
+    game.draw();
+  }
+}
+
+void mouseClicked() {
+  if (mouseX > instructions.getX() && mouseX < instructions.getX() + instructions.getLength() 
+      && mouseY > instructions.getY() && mouseY < instructions.getY() + instructions.getWidth()) {
+    System.out.println("instructions");
+    instScreen = true;
+  }
+  
+  if (mouseX > about.getX() && mouseX < about.getX() + about.getLength() && mouseY > about.getY()
+      && mouseY < about.getY() + about.getWidth()) {
+    System.out.println("about");
+    aboutScreen = true;
+  }
+  
+  if (mouseX > start.getX() && mouseX < start.getX() + start.getLength() && mouseY > start.getY()
+      && mouseY < start.getY() + start.getWidth()) {
+    System.out.println("start");
+    play = true;
+  }
+}
+
+  //move player from pressing L/R arrow keys
+void keyPressed() {
+  float x = player.loc.x;
+    
+  if (player.loc.x <= 45) {
+    x = 45;
+  } else if (x >= 555) {
+    x = 555;
+  }
+    
+  if (keyCode == LEFT) {
+    player.loc.set(x - 10, 500);
+  } else if (keyCode == RIGHT) {
+    player.loc.set(x + 10, 500);
+  }
+}
