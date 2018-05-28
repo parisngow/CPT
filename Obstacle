@@ -1,22 +1,12 @@
-public class Obstacle {
-  private PVector loc;
-  private PVector speed;
+public class Obstacle extends Cell {
   
-  public Obstacle(PVector loc, PVector speed) {
-    this.loc = loc;
-    this.speed = speed;
-  }
-  
-  public boolean collides(float x, float y) {
-    PVector point = new PVector(x, y);
-    float dist = PVector.dist(this.loc, point);
-    
-    return dist <= 35;
+  public Obstacle (PVector loc, PVector speed) {
+    super(loc, speed);
   }
   
   void draw() {
     noStroke();
     fill(0);
-    rect(loc.x, loc.y, 20, 50);
+    rect(getXLoc(), getYLoc(), 20, 50);
   }
 }
