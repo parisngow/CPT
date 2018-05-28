@@ -17,12 +17,40 @@ public class Cell {
     PVector point = new PVector(x, y);
     float dist = PVector.dist(this.loc, point);
     
-    return dist <= 35;
+    return dist <= 30;
   }
   
   void draw() {
     noStroke();
     fill(col);
     ellipse(loc.x, loc.y, 70, 60);
+  }
+  
+  public float getXLoc() {
+    return loc.x;
+  }
+  
+  public float getYLoc() {
+    return loc.y;
+  }
+  
+  public PVector getSpeed() {
+    return speed;
+  }
+  
+  public void setLoc(float x, float y) {
+    loc = new PVector(x, y);
+  }
+  
+  public void setLoc(PVector loc) {
+    this.loc = loc;
+  }
+  
+  public void setSpeed(PVector speed) {
+    this.speed = speed;
+  }
+  
+  public void move() {
+    this.loc.y += speed.y;
   }
 }
