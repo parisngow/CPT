@@ -54,7 +54,7 @@ public class Menu {
     text("GAME", 200, 150);
 
     instructions.draw();
-    about.draw();
+    aboutButton.draw();
     text("STEM CELLS", 375, 265);
     start.draw();
   }
