@@ -30,13 +30,13 @@ public class Game {
     //draw and move cells
     for (Cell cell : cells) {
       cell.draw();
-      cell.loc.add(cell.speed);
+      cell.move();
     }
     
     //draw and move obstacles 
     for (Obstacle obstacle : obstacles) {
       obstacle.draw();
-      obstacle.loc.add(obstacle.speed);
+      obstacle.move();
     }
      
     player.draw();
