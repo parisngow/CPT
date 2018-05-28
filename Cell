@@ -4,7 +4,7 @@ public class Cell {
   
   private int col;
   
-  Cell(PVector loc, PVector speed) {
+  public Cell(PVector loc, PVector speed) {
     this.loc = loc;
     this.speed = speed;
   }
