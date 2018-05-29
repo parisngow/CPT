@@ -1,17 +1,14 @@
-boolean menuScreen = false;
+int gameScreen = 0;
+
 Menu menu;
 
-boolean instScreen = false;
 Button instructions;
 Instructions instr;
 
-boolean aboutScreen = false;
 Button aboutButton;
 About about;
 
-boolean play = false;
 Button start;
-
 Game game;
 Cell player;
 int score;
@@ -47,18 +44,14 @@ void setup() {
 }
 
 void draw() {
-  if (play == false && aboutScreen == false && instScreen == false) {
+  if (gameScreen == 0) {
     menu.draw();
-  } else if (play == true) {
+  } else if (gameScreen == 1) {
     game.draw();
-  } else if (instScreen == true) {
+  } else if (gameScreen == 2) {
     instr.draw();
-  } else if (aboutScreen == true) {
+  } else if (gameScreen == 3) {
     about.draw();
-  } else if (menuScreen == true) {
-    instScreen = false;
-    aboutScreen = false;
-    menu.draw();
   }
 }
 
@@ -66,25 +59,25 @@ void mouseClicked() {
   if (mouseX > instructions.getX() && mouseX < instructions.getX() + instructions.getLength() 
       && mouseY > instructions.getY() && mouseY < instructions.getY() + instructions.getWidth()) {
     System.out.println("instructions");
-    instScreen = true;
+    gameScreen = 2;
   }
   
   if (mouseX > aboutButton.getX() && mouseX < aboutButton.getX() + aboutButton.getLength() && mouseY > aboutButton.getY()
       && mouseY < aboutButton.getY() + aboutButton.getWidth()) {
     System.out.println("about");
-    aboutScreen = true;
+    gameScreen = 3;
   }
   
   if (mouseX > start.getX() && mouseX < start.getX() + start.getLength() && mouseY > start.getY()
       && mouseY < start.getY() + start.getWidth()) {
     System.out.println("start");
-    play = true;
+    gameScreen = 1;
   }
 }
 
 void keyReleased() {
   if (key == BACKSPACE) {
-    menuScreen = true;
+    gameScreen = 0;
     System.out.println("back");
   }
 }
