@@ -1,3 +1,9 @@
+/* if gameScreen =
+0, menu
+1, start game
+2, instructions
+3, about
+4, game over*/
 int gameScreen = 0;
 
 Menu menu;
@@ -10,13 +16,15 @@ About about;
 
 Button start;
 Game game;
-Cell player;
+GameOver gameOver;
+Object player;
 int score;
 
 void setup() {
   size(600, 600);
   
   menu = new Menu();
+  gameOver = new GameOver();
   
   //initalize instructions screen and button
   instr = new Instructions();
@@ -39,7 +47,7 @@ void setup() {
   //initalize player
   PVector pLoc = new PVector(300, 500);
   PVector pSpeed = new PVector(0, 0);
-  player = new Cell(pLoc, pSpeed);
+  player = new Object(pLoc, pSpeed);
   player.setColor(#B22222);
 }
 
@@ -52,6 +60,8 @@ void draw() {
     instr.draw();
   } else if (gameScreen == 3) {
     about.draw();
+  } else if (gameScreen == 4) {
+    gameOver.draw();
   }
 }
 
