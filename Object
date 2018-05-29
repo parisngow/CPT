@@ -1,10 +1,11 @@
-public class Cell {
+public class Object {
   private PVector loc;
   private PVector speed;
-  
+  private int l = 70;  
+  private int w = 60;
   private int col;
   
-  public Cell(PVector loc, PVector speed) {
+  public Object(PVector loc, PVector speed) {
     this.loc = loc;
     this.speed = speed;
   }
@@ -17,13 +18,13 @@ public class Cell {
     PVector point = new PVector(x, y);
     float dist = PVector.dist(this.loc, point);
     
-    return dist <= 30;
+    return dist <= l/2;
   }
   
   void draw() {
     noStroke();
     fill(col);
-    ellipse(loc.x, loc.y, 70, 60);
+    ellipse(loc.x, loc.y, l, w);
   }
   
   public float getXLoc() {
@@ -32,6 +33,10 @@ public class Cell {
   
   public float getYLoc() {
     return loc.y;
+  }
+  
+  public PVector getLoc() {
+    return loc;
   }
   
   public PVector getSpeed() {
