@@ -2,18 +2,22 @@ import java.util.Random;
 
 public class Game {
   
-  ArrayList<Cell> cells = new ArrayList();
+  ArrayList<Object> cells = new ArrayList();
   ArrayList<Obstacle> obstacles = new ArrayList();
   
   void draw() {
     background(255, 255, 255);
    
     //initalize cells, add into an arraylist to store
-    if (frameCount % 180 == 0) {
+    if (score < 20 && frameCount % 180 == 0) {
+      generateCells();
+    } else if (score >= 20 && frameCount % 120 == 0) {
       generateCells();
     }
     
     if (frameCount % 200 == 0) {
+      generateObstacles();
+    } else if (score >= 20 && frameCount % 140 == 0) {
       generateObstacles();
     }
     
@@ -28,7 +32,7 @@ public class Game {
     //}
    
     //draw and move cells
-    for (Cell cell : cells) {
+    for (Object cell : cells) {
       cell.draw();
       cell.move();
     }
@@ -41,19 +45,26 @@ public class Game {
      
     player.draw();
     
-    //check collision
+    //check collision && if cell passed screen boundaries
     for (int i = 0; i < cells.size(); i++) {
       if (cells.get(i).collides(player.loc.x, player.loc.y)) {
         println("collision");
         cells.remove(i);
         score ++;
+      } else if (cells.get(i).getYLoc() >= 660) {
+        println("removed cell");
+        cells.remove(i);
       }
     }
     
     for (int n = 0; n < obstacles.size(); n++) {
        if (obstacles.get(n).collides(player.loc.x, player.loc.y)) {
         println("game over");
-        menuScreen = true;
+        gameScreen = 4;
+        restart();
+      } else if (obstacles.get(n).getYLoc() >= 600) {
+        println("removed obstacle");
+        obstacles.remove(n);
       }
     }
      
@@ -78,7 +89,7 @@ public class Game {
     
     PVector cLoc = new PVector(random(35, width-35), 0);
     PVector cSpeed = new PVector(0, +2);
-    Cell newCell = new Cell(cLoc, cSpeed);
+    Object newCell = new Object(cLoc, cSpeed);
     newCell.setColor(colors[colorLoc]);
     cells.add(newCell);
   }
@@ -88,5 +99,12 @@ public class Game {
     PVector oSpeed = new PVector(0, +2);
     Obstacle newObst = new Obstacle(oLoc, oSpeed);
     obstacles.add(newObst);
+  }
+
+  void restart() {
+    gameOver.roundScore(score);
+    score = 0;
+    cells.clear();
+    obstacles.clear();
   }
 }
